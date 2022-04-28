@@ -125,6 +125,11 @@ void List::push_front(int data){
 
 void List::insert_at(int data, int pos){
 
+  if(pos == 0 || pos > size){
+    cout<<"Wrong position to insert"<<endl;
+    return;
+  }
+
   node* newnode = new node(data);
   size++;
 
@@ -132,9 +137,11 @@ void List::insert_at(int data, int pos){
     head = newnode;
     return;
   }
+
   if(pos == 1){
     newnode->link = head;
     head = newnode;
+    return;
   }
 
   node* itr = head;
