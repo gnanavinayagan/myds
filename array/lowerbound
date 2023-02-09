@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+void print(vector<int> arr){
+    for(auto&x : arr)
+        cout<<x<< " ";
+    cout<<endl;
+}
+
+
+
+
+
+int lowerBound(vector<int> arr, int val) {
+    // your code goes here
+    
+    print(arr);
+    cout<<"val: "<<val<<endl;
+    
+    int lb = -999999;
+    bool flag = false;
+    for(auto &x: arr){
+        if (x == val)
+            return val;
+        if(x < val)
+            flag = true;
+        if(x  < val && x > lb){
+            lb = x;
+            
+        }
+    }
+    if(flag == false){
+        cout<<"Va"<<val<<endl;
+        return -1;
+    }
+    
+    cout<<lb<<endl;
+    return lb;
+    
+    
+}
