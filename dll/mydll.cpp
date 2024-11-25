@@ -61,7 +61,6 @@ void DLL::push_back(int val){
 }
 
 void DLL::insert_at(int val, int pos){
-  
 
   if(pos <= 0 || pos > size +1 ){
     cout<<"Wrong position to insert"<<endl;
@@ -108,6 +107,7 @@ void DLL::insert_at(int val, int pos){
 void DLL::pop_back(){
   if (head == nullptr){
     cout<< "Nothing to delete"<<endl;
+    return;
   }
   dnode* itr = head;
   while(itr->next != nullptr){
@@ -170,7 +170,6 @@ void DLL::clean(){
   head = nullptr;
 
 }
-
 
 
 // print
