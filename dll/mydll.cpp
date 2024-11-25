@@ -63,7 +63,7 @@ void DLL::push_back(int val){
 void DLL::insert_at(int val, int pos){
   
 
-  if(pos == 0 || pos > size){
+  if(pos <= 0 || pos > size +1 ){
     cout<<"Wrong position to insert"<<endl;
     return;
   }
@@ -84,14 +84,22 @@ void DLL::insert_at(int val, int pos){
   }
 
   dnode* itr = head;
-  for(int i=1;(i<pos-1 && itr!=nullptr); i++){
+  int i;
+  for(i=1;(i < pos-1 && itr->next!=nullptr); i++){
     itr = itr->next;
   }
 
-  dnode* tmp = itr->next;
+  if (i < pos-1 ){
+    cout<<"Desired postion does not exist"<<endl;
+    delete newnode;
+    return;
+  } 
+
   newnode->next = itr->next;
   newnode->prev = itr;
-  itr->next->prev = newnode;
+  if (itr->next){
+    itr->next->prev = newnode;
+  }
   itr->next = newnode;
 
 }
