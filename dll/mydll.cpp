@@ -133,7 +133,7 @@ void DLL::delete_at(int pos){
     cout<<"Nothing to delete. DLL is empty"<<endl;
     return;
   }
-  if(pos <=0 or pos > size ){
+  if(pos <= 0 or pos > size ){
     cout<<"Wrong position to delete";
     return;
   }
@@ -145,15 +145,23 @@ void DLL::delete_at(int pos){
     return;
   }
   dnode* itr = head;
-  for(int i=1; i<pos-1; i++){
+  int i=1;
+  for(i=1; (i < pos-1 && itr->next->next != nullptr ); i++){
     itr = itr->next;
   }
-  // itr = pos-1
-  dnode *tmp = itr->next;
-  itr->next = itr->next->next;
-  if(itr->next!=nullptr){
-    itr->next->prev = itr;
+  // i = pos - 1 one before the element to delete
+  // itr ->next  nullptr - reached last element 
+  // itr -> next -> next nullptr - one before last element
+
+  if ( i< pos -1 ){
+    cout<<"Position does not exist to delete";
+    // pos 5, i = 3 => 4th element is the last element
+    return;
   }
+
+  dnode *tmp = itr->next; // node to delete
+  itr->next = itr->next->next;
+  itr->next->prev = itr;
   delete tmp;
 }
 
