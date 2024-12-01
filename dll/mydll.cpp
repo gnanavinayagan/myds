@@ -6,20 +6,20 @@ using namespace std;
 
 DLL::DLL(): head{nullptr}, size{0} {}
 
-DLL::DLL(std::initializer_list<int> dll_list): head{nullptr}, size{0}{
-  for(auto& x: dll_list){
+DLL::DLL(std::initializer_list<int> dll_list): head{nullptr}, size{0} {
+  for (auto& x : dll_list) {
     // cout<<x <<" ";
     push_back(x);
   }
-  cout<<endl;
+  cout << endl;
 }
 
 // utility functions
 
-dnode* DLL::getHead() const{
+dnode* DLL::getHead() const {
   return head;
 }
-size_t DLL::getSize() const{
+size_t DLL::getSize() const {
   return size;
 }
 
@@ -32,7 +32,7 @@ bool DLL::isNonEmpty() const {
 }
 
 // insertion
-void DLL::push_front(int val){
+void DLL::push_front(int val) {
   dnode* newnode = new dnode(val);
   size++;
 
@@ -45,37 +45,37 @@ void DLL::push_front(int val){
   head = newnode;
 }
 
-void DLL::push_back(int val){
+void DLL::push_back(int val) {
   dnode* newnode = new dnode(val);
   size++;
-  if(head == nullptr){
-      head = newnode;
-      return;
+  if (head == nullptr) {
+    head = newnode;
+    return;
   }
   dnode* itr = head;
-  while (itr->next != nullptr){
+  while (itr->next != nullptr) {
     itr = itr->next;
   }
   itr->next = newnode;
   newnode->prev = itr;
 }
 
-void DLL::insert_at(int val, int pos){
+void DLL::insert_at(int val, int pos) {
 
-  if(pos <= 0 || pos > size +1 ){
-    cout<<"Wrong position to insert"<<endl;
+  if (pos <= 0 || pos > size + 1 ) {
+    cout << "Wrong position to insert" << endl;
     return;
   }
 
   dnode* newnode = new dnode(val);
   size++;
 
-  if(head == nullptr){
+  if (head == nullptr) {
     head = newnode;
     return;
   }
 
-  if (pos == 1){
+  if (pos == 1) {
     newnode->next = head;
     head->prev = newnode;
     head = newnode;
@@ -84,33 +84,33 @@ void DLL::insert_at(int val, int pos){
 
   dnode* itr = head;
   int i;
-  for(i=1;(i < pos-1 && itr->next!=nullptr); i++){
+  for (i = 1; (i < pos - 1 && itr->next != nullptr); i++) {
     itr = itr->next;
   }
 
-  if (i < pos-1 ){
-    cout<<"Desired postion does not exist"<<endl;
+  if (i < pos - 1 ) {
+    cout << "Desired postion does not exist" << endl;
     delete newnode;
     return;
-  } 
+  }
 
   newnode->next = itr->next;
   newnode->prev = itr;
-  if (itr->next){
+  if (itr->next) {
     itr->next->prev = newnode;
   }
   itr->next = newnode;
 
 }
 
-// deletion 
-void DLL::pop_back(){
-  if (head == nullptr){
-    cout<< "Nothing to delete"<<endl;
+// deletion
+void DLL::pop_back() {
+  if (head == nullptr) {
+    cout << "Nothing to delete" << endl;
     return;
   }
   dnode* itr = head;
-  while(itr->next != nullptr){
+  while (itr->next != nullptr) {
     itr = itr->next;
   }
   itr->prev->next = nullptr; // itr pointing last element
@@ -118,9 +118,9 @@ void DLL::pop_back(){
 
 }
 
-void DLL::pop_front(){
-  if (head == nullptr){
-    cout<<"Nothing to delete. DLL is empty";
+void DLL::pop_front() {
+  if (head == nullptr) {
+    cout << "Nothing to delete. DLL is empty";
   }
   dnode* tmp = head;
   head = head->next;
@@ -128,16 +128,16 @@ void DLL::pop_front(){
   delete tmp;
 }
 
-void DLL::delete_at(int pos){
-  if(head == nullptr){
-    cout<<"Nothing to delete. DLL is empty"<<endl;
+void DLL::delete_at(int pos) {
+  if (head == nullptr) {
+    cout << "Nothing to delete. DLL is empty" << endl;
     return;
   }
-  if(pos <= 0 or pos > size ){
-    cout<<"Wrong position to delete";
+  if (pos <= 0 or pos > size ) {
+    cout << "Wrong position to delete";
     return;
   }
-  if(pos == 1){
+  if (pos == 1) {
     dnode* tmp = head;
     head = head->next;
     head->prev = nullptr;
@@ -145,16 +145,16 @@ void DLL::delete_at(int pos){
     return;
   }
   dnode* itr = head;
-  int i=1;
-  for(i=1; (i < pos-1 && itr->next->next != nullptr ); i++){
+  int i = 1;
+  for (i = 1; (i < pos - 1 && itr->next->next != nullptr ); i++) {
     itr = itr->next;
   }
   // i = pos - 1 one before the element to delete
-  // itr ->next  nullptr - reached last element 
+  // itr ->next  nullptr - reached last element
   // itr -> next -> next nullptr - one before last element
 
-  if ( i< pos -1 ){
-    cout<<"Position does not exist to delete";
+  if ( i < pos - 1 ) {
+    cout << "Position does not exist to delete";
     // pos 5, i = 3 => 4th element is the last element
     return;
   }
@@ -165,12 +165,12 @@ void DLL::delete_at(int pos){
   delete tmp;
 }
 
-void DLL::clean(){
-  if (head == nullptr){
-    cout<<"Already clean. Nothing to delete";
+void DLL::clean() {
+  if (head == nullptr) {
+    cout << "Already clean. Nothing to delete";
   }
   dnode* itr = head;
-  while (itr != nullptr){
+  while (itr != nullptr) {
     dnode* tmp = itr;
     itr = itr->next;
     delete tmp;
@@ -181,44 +181,45 @@ void DLL::clean(){
 
 
 // print
-void DLL::printReverse(){
-  if (head ==nullptr){
+void DLL::printReverse() {
+  if (head == nullptr) {
     mt();
   }
   dnode* itr = head;
-  while(itr->next!= nullptr){
+  while (itr->next != nullptr) {
     itr = itr->next;
   }
-  while (itr!=nullptr){;
-    cout<<itr->data<<" ";
+  while (itr != nullptr) {
+    ;
+    cout << itr->data << " ";
     itr = itr->prev;
   }
-  cout<<endl;
+  cout << endl;
 }
 
-void DLL::print(){
-  if(head == nullptr){
+void DLL::print() {
+  if (head == nullptr) {
     mt();
   }
   dnode* itr = head;
-  while(itr != nullptr){
-    cout<<itr->data << " ";
+  while (itr != nullptr) {
+    cout << itr->data << " ";
     itr = itr->next;
   }
-  cout<<endl;
+  cout << endl;
 }
 
 
-ostream& operator<<(ostream& os, DLL& dl){
+ostream& operator<<(ostream& os, DLL& dl) {
 
-  if (dl.getHead() == nullptr){
+  if (dl.getHead() == nullptr) {
     mt();
   }
   dnode* itr = dl.getHead();
-  while (itr != nullptr){
-    os<<itr->data<<" ";
+  while (itr != nullptr) {
+    os << itr->data << " ";
     itr = itr->next;
   }
-  os<<endl;
+  os << endl;
   return os;
 }
